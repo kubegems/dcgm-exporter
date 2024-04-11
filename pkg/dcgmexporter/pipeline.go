@@ -126,6 +126,12 @@ func getTransformations(c *Config) []Transform {
 		} else {
 			transformations = append(transformations, podMapper)
 		}
+		vgpuMapper, err := NewVGPUMapper(c)
+		if err != nil {
+			logrus.Warnf("Could not enable kubernetes-vgpu metric collection: %v", err)
+		} else {
+			transformations = append(transformations, vgpuMapper)
+		}
 	}
 
 	return transformations
